@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import About from './components/About';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Project from './components/Project';
+import { IoIosArrowUp } from 'react-icons/io'
+import { animateScroll as scroll } from "react-scroll";
 
-function App() {
+const App = () => {
+  const [scrollToTop, setScrollToTop] = React.useState(false)
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', () => {
+      window.pageYOffset > 500 ? setScrollToTop(true) : setScrollToTop(false)
+    })
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+      <main className="overflow-y-scroll scrollbar-hide">
+          <Header/>
+          <Hero/>
+          <About/>
+          <Project/>
+          <Footer/>
+          {scrollToTop && (
+            <button className="fixed bottom-3 right-3 p-2 rounded-lg dark:text-gray-100 bg-zinc-300 border border-zinc-300 hover:border-zinc-400 dark:bg-zinc-800 dark:border-zinc-800 dark:hover:border-zinc-700" onClick={() => scroll.scrollToTop()}> 
+              <IoIosArrowUp/>
+            </button>
+          )}
+      </main>
+  )
+};
 
 export default App;
